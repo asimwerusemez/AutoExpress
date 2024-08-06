@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<section class="container" style="margin-top: 2rem;">
+	<h1 class="heading">Veuillez Renseigner l'adresse de livraison de votre commande</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>
+            <textarea name="adresse_livraison" id="adresse_livraison">
+
+            </textarea>
+        </label>
+
+        <button>Effectuer le paiement</button>
+    </form>
+
+
+</section>
+
+
+
+{% endblock content %}

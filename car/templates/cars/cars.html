@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<!--cars section-->
+<section class="cars" id="cars" style="margin-top: 3rem; margin-bottom: 20rem;">
+    <div class="heading">
+        <span>Nos vehicules</span>
+        <h2>Nous avons tous les types de vehicule</h2>
+        <p>Les voitures sont proposées à des prix compétitifs tout en maintenant une bonne qualité.</p>
+    </div>
+
+    <!--Cars container-->
+    <div class="cars-container container" style="margin-top: 70px;">
+        {% for car in cars %}
+            <div class="box">
+                <a href="{% url 'car:cars_details' car.id %}">
+                    <img src="{{ car.photo.url }}" alt="">
+                </a>
+                <a href="{% url 'car:cars_details' car.id %}">
+                <h2> {{ car.marque }} </h2>
+                </a>
+
+                
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock content %}

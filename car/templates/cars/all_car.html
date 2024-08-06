@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<!--Home section-->
+<section class="home" id="home">
+    <div class="home-text">
+        <h1>Nous avons tout ce dont <br> votre  <span>vehicule</span> a besoin</h1>
+        <p>Nous sommes passionnés par les véhicules et nous <br> nous engageons à fournir des pièces de haute qualité <br> pour tous les types de véhicules.</p>
+        <!--home Button-->
+        <a href="#" class="btn">Découvrir maintenant</a>
+    </div>
+
+</section>
+<!--cars section-->
+<section class="cars" id="cars">
+    <div class="heading">
+        <span>Nos vehicules</span>
+        <h2>Nous avons tous les types de vehicule</h2>
+        <p>Les voitures sont proposées à des prix compétitifs tout en maintenant une bonne qualité.</p>
+    </div>
+
+    <!--Cars container-->
+    <div class="cars-container container">
+        {% for car in cars %}
+            <div class="box">
+                <a href="{% url 'car:cars_details' car.id %}">
+                    <img src="{{ car.photo.url }}" alt="">
+                </a>
+                <a href="{% url 'car:cars_details' car.id %}">
+                <h2> {{ car.marque }} </h2>
+                </a>    
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+<!--About-->
+<section>
+    <section class="about container" id="about">
+        <div class="about-img">
+            <img src="{% static 'images/about.png' %}" alt="">
+        </div>
+        <div class="about-text">
+            <span>À propos de nous</span>
+            <h2>Des prix bon marché avec <br> des voitures de qualité</h2>
+            <p> la satisfaction de nos clients est notre priorité. Nous sommes fiers de fournir un service exceptionnel et des produits de qualité supérieure. Que vous soyez un passionné de voitures ou que vous ayez simplement besoin d’une pièce spécifique, nous sommes là pour vous accompagner à chaque étape.</p>
+            <!--About Button-->
+            <a href="#" class="btn">Apprendre encore plus</a>
+        </div>
+    </section>
+</section>
+
+<!--parts section-->
+
+<section class="parts" id="parts">
+    <div class="heading">
+        <span>Ce que nous offrons</span>
+        <h2>Nos vehicules sont toujours excellent</h2>
+        <p>Des pièces détachées pour voitures sont également disponibles à l’achat.</p>
+    </div>
+    <!--parts container-->
+    <div class="parts-container container">
+    
+        {% for partsAuto in partsAutos %}
+
+            <div class="box">
+                <img src="{{ partsAuto.photo.url }}" alt="">
+                <h3> {{ partsAuto.type_piece }} </h3>
+                <span> <small>$</small>{{ partsAuto.prix }} </span>
+                <i class="fa-solid fa-star">(6 avis)</i>
+                <a href="{% url 'sell:add_to_cart_piece' partsAuto.id %}" class="btn achat-piece">Ajouter dans le pannier</a>
+                <a href="{% url 'car:pieces_details' partsAuto.id %}" class="details">Voir les details</a>
+            </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock content %}

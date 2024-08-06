@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<section class="container" style="margin-top: 2rem;">
+	<h1 class="heading">Résumé de votre commande</h1>
+	<div class="cart container">
+            <div class="products container">
+
+            {% for order in orders %}
+                <div class="product">
+                    {% if order.vehicule %}
+                        <img src="{{ order.vehicule.photo.url }}">
+                    {% elif order.piece %}
+                        <img src="{{ order.piece.photo.url }}">
+                    {% endif %}
+
+                    <div class="product-info">
+
+                        {% if order.vehicule %}
+                            <h3 class="product-name">{{ order.vehicule.marque }}</h3>
+                        {% elif order.piece %}
+                            <h3 class="product-name">{{ order.piece.type_piece }}</h3>
+                        {% endif %}
+                        
+                        {% if order.vehicule %}
+                        <h4 class="product-price"><small>$</small>{{ order.vehicule.prix }}</h4>
+                        {% elif order.piece %}
+                            <h4 class="product-price"><small>$</small>{{  order.piece.prix }}</h4>
+                        {% endif %}
+                        
+                        <p class="product-quantity">Qnt: <input value="{{ order.quatity }}" name="quantity_{{ order.id }}">
+                        <p class="product-remove">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            <span class="remove">Supprimer</span>
+                        </p>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+
+		<div class="cart-total container" style="width: 100%;">
+			<p>
+				<span>Prix Total</span>
+				<span> <small>$</small>{{ total_price }} </span>
+			</p>
+			<p>
+				<span>Nombre(s) d'articles</span>
+				<span>2</span>
+			</p>
+            
+			<a href="{% url 'sell:achatCar' id=1 %}">Procéder au Paiement</a>
+		</div>
+	</div>
+
+</section>
+
+
+
+
+{% endblock content %}

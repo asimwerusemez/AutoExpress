@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<section>
+    <div class="container flex container-detail">
+      <div class="left">
+        <div class="main_image">
+          <img src="{{ piece_detail.photo.url }}" class="slide-main-detail">
+        </div>
+      </div>
+      <div class="right">
+        <h3 class="details-md">{{ piece_detail.type_piece }}</h3>
+        <h4 class="details-price"> <small>$</small>{{ piece_detail.prix }} </h4>
+        <p class="paraf-detail">{{ piece_detail.description }}</p>
+        <p class="paraf-detail">Etat <strong>{{ piece_detail.etat }}</strong></p>
+        <p class="paraf-detail">Marque <strong>{{ piece_detail.marque }}</strong></p>
+
+        <a href="{% url 'sell:achatCar' piece_detail.id %}"><button class="btn-buy">Acheter</button></a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'sell:add_to_cart_piece' piece_detail.id %}">
+          <button class="btn-buy add_to_cart">Ajouter dans le pannier</button>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+
+  <section class="parts" id="parts" style="margin-top: -4rem; margin-bottom: 6rem;">
+    <div class="heading container" style="text-align: left;">
+      <h2>Explorez Tous Nos Pièces</h2>
+      <p>Découvrez une variété de Pièces disponibles. Parcourez les modèles,  comparez les caractéristiques et <br> trouvez celui qui correspond à vos besoins !</p>
+    </div>
+    <!--parts container-->
+    <div class="parts-container container">
+        
+        {% for partsAuto in partsAutos %}
+
+            <div class="box">
+                <img src="{{ partsAuto.photo.url }}" alt="">
+                <h3> {{ partsAuto.type_piece }} </h3>
+                <span><small>$</small>{{ partsAuto.prix }} </span>
+                <i class='bx bxs-star'>(6 avis)</i>
+                <a href="{% url 'sell:add_to_cart_piece' partsAuto.id %}" class="btn achat-piece">Ajouter dans le pannier</a>
+                <a href="{% url 'car:pieces_details' partsAuto.id %}" class="details">Voir les details</a>
+            </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+
+
+{% endblock content %}

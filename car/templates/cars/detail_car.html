@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+
+<section>
+    <div class="container flex container-detail">
+      <div class="left">
+        <div class="main_image">
+          <img src="{{ car_detail.photo.url }}" class="slide-main-detail">
+        </div>
+      </div>
+      <div class="right">
+        <h3 class="details-md">{{ car_detail.marque }}</h3>
+        <h4 class="details-price"> <small>$</small>{{ car_detail.prix }} </h4>
+        <p class="paraf-detail">{{ car_detail.description }}</p>
+
+        <p class="paraf-detail">Modele <strong>{{ car_detail.modele }}</strong></p>
+        <p class="paraf-detail">Année de fabrication <strong>{{ car_detail.annee_fabrication }}</strong></p>
+        <p class="paraf-detail">Kilometrage <strong>{{ car_detail.kilometrage }}</strong></p>
+        <p class="paraf-detail">Carburant <strong>{{ car_detail.carburant }}</strong></p>
+        <p class="paraf-detail">Type vehicule <strong>{{ car_detail.type_vehicule }}</strong></p>
+        <p class="paraf-detail">Etat <strong>{{ car_detail.etat }}</strong></p>
+
+        <a href="{% url 'sell:achatCar' car_detail.id %}"><button class="btn-buy">Acheter</button></a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'sell:add_to_cart_car' car_detail.id %}">
+          <button class="btn-buy add_to_cart">Ajouter dans le pannier</button>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+
+
+  <!--cars section-->
+<section class="cars" id="cars" style="margin-top: -8rem; margin-bottom: 6rem;">
+  <div class="heading container" style="text-align: left;">
+    <h2>Explorez Tous Nos Véhicules</h2>
+    <p>Découvrez une variété de véhicules disponibles. Parcourez les modèles,  comparez les caractéristiques et <br> trouvez celui qui correspond à vos besoins !</p>
+</div>
+
+
+  <!--Cars container-->
+  <div class="cars-container container">
+      {% for car in cars %}
+          <div class="box">
+              <a href="{% url 'car:cars_details' car.id %}">
+                  <img src="{{ car.photo.url }}" alt="">
+              </a>
+              <a href="{% url 'car:cars_details' car.id %}">
+              <h2> {{ car.marque }} </h2>
+              </a>
+          </div>
+      {% endfor %}
+  </div>
+</section>
+
+
+{% endblock content %}
